@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class DialogueManager : MonoBehaviour
     private Queue<DialogueLine> lines;
 
     public bool isDialogueActive = false;
+    public bool isTyping = false;
     public float typingSpeed = 0.2f;
     public Animator animator;
 
@@ -55,14 +57,16 @@ public class DialogueManager : MonoBehaviour
         StartCoroutine(TypeSentence(currentLine));
     }
 
-    IEnumerator TypeSentence(DialogueLine dialogueLine)
+    public IEnumerator TypeSentence(DialogueLine dialogueLine)
     {
+        isTyping = true;
         dialogueArea.text = "";
-        foreach(char line in dialogueLine.line.ToCharArray())
+        foreach(var line in dialogueLine.line.ToCharArray())
         {
             dialogueArea.text += line;
             yield return new WaitForSeconds(typingSpeed);
         }
+         isTyping = false;
     }
 
     private void EndDialogue()

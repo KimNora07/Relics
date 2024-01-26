@@ -39,5 +39,9 @@ public class DialogueSystem : MonoBehaviour
         {
             SystemDialogue();
         }
+        if (DialogueManager.instance.isDialogueActive && !DialogueManager.instance.isTyping && Input.GetKeyDown(KeyCode.Z))
+        {
+            DialogueManager.instance.DisplayNextDialogue();
+        }
     }
 }
