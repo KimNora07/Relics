@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
+using KoreanTyper;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -13,11 +14,12 @@ public class DialogueManager : MonoBehaviour
     public TextMeshProUGUI characterName;
     public TextMeshProUGUI dialogueArea;
 
-    private Queue<DialogueLine> lines;
+    private List<DialogueLine> lines;
+    private int currentIndex = 0;
 
     public bool isDialogueActive = false;
     public bool isTyping = false;
-    public float typingSpeed = 0.2f;
+    public float typingSpeed = 0.05f;
     public Animator animator;
 
     private void Awake()
@@ -26,47 +28,49 @@ public class DialogueManager : MonoBehaviour
         {
             instance = this;
         }
-        lines = new Queue<DialogueLine>();
+        lines = new List<DialogueLine>();
     }
 
     public void StartDialogue(Dialogue dialogue)
     {
         isDialogueActive = true;
         lines.Clear();
-        foreach(DialogueLine dialogueLine in dialogue.dialogueLines)
-        {
-            lines.Enqueue(dialogueLine);
-        }
+        lines.AddRange(dialogue.dialogueLines);
+        currentIndex = 0;
         DisplayNextDialogue();
     }
 
     public void DisplayNextDialogue()
     {
-        if(lines.Count == 0)
+        if(currentIndex >= lines.Count)
         {
             EndDialogue();
             return;
         }
 
-        DialogueLine currentLine = lines.Dequeue();
+        DialogueLine currentLine = lines[currentIndex];
 
         characterIcon.sprite = currentLine.character.icon;
         characterName.text = currentLine.character.name;
 
         StopAllCoroutines();
         StartCoroutine(TypeSentence(currentLine));
+        currentIndex++;
     }
 
     public IEnumerator TypeSentence(DialogueLine dialogueLine)
     {
         isTyping = true;
         dialogueArea.text = "";
-        foreach(var line in dialogueLine.line.ToCharArray())
+
+        int lineLength = dialogueLine.line.Length;
+
+        for(int i = 0; i < lineLength; i++)
         {
-            dialogueArea.text += line;
+            dialogueArea.text += dialogueLine.line[i];
             yield return new WaitForSeconds(typingSpeed);
         }
-         isTyping = false;
+        isTyping = false;
     }
 
     private void EndDialogue()

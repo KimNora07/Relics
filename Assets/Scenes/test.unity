@@ -171,7 +171,8 @@ MonoBehaviour:
   characterName: {fileID: 1421959502}
   dialogueArea: {fileID: 413484735}
   isDialogueActive: 0
-  typingSpeed: 0.2
+  isTyping: 0
+  typingSpeed: 0.1
   animator: {fileID: 0}
 --- !u!1 &301092340
 GameObject:
@@ -226,11 +227,11 @@ MonoBehaviour:
     - character:
         name: "\uB178\uB77C"
         icon: {fileID: 21300000, guid: 6e9ecfa260176c144a6237cf411a5684, type: 3}
-      line: "\uC548\uB155\uD558\uC138\uC694? \uBC18\uAC11\uC2B5\uB2C8\uB2E4!"
+      line: "\uADFC\uB370 \uB204\uAD6C\uC138\uC694?"
     - character:
         name: "\uB178\uB77C"
         icon: {fileID: 21300000, guid: 6e9ecfa260176c144a6237cf411a5684, type: 3}
-      line: "\uC548\uB155\uD558\uC138\uC694? \uBC18\uAC11\uC2B5\uB2C8\uB2E4!"
+      line: "\uC9C4\uC9DC \uBAB0\uB77C\uC11C \uBB3C\uC5B4\uBD05\uB2C8\uB2E4!"
 --- !u!1 &376738124
 GameObject:
   m_ObjectHideFlags: 0
