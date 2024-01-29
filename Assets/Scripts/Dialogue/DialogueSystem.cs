@@ -31,6 +31,8 @@ public class DialogueSystem : MonoBehaviour
     public void SystemDialogue()
     {
         DialogueManager.instance.StartDialogue(dialogue);
+
+        
     }
 
     private void Update()
